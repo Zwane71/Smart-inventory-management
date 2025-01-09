@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const BasicAppBar({super.key});
+  final Widget ? title;
+  const BasicAppBar({super.key, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +11,8 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
      
      backgroundColor: Colors.transparent,
      elevation: 0,
+     centerTitle: true,
+     title: title ?? const  Text("") ,
      leading: IconButton(
       onPressed: (){
         Navigator.pop(context);
