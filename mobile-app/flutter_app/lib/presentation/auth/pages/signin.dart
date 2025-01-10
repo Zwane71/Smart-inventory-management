@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/widgets/appbar/app_bar.dart';
 import 'package:flutter_app/core/configs/assets/app_vectors.dart';
+import 'package:flutter_app/core/configs/theme/app_colors.dart';
+import 'package:flutter_app/presentation/auth/pages/signup.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,21 +16,18 @@ class SigninPage extends StatefulWidget {
 class _SigninPageState extends State<SigninPage> {
   @override
   Widget build(BuildContext context) {
-     final ButtonStyle signupButtonStyle = ElevatedButton.styleFrom(
-      
+    final ButtonStyle signupButtonStyle = ElevatedButton.styleFrom(
       minimumSize: const Size(78, 40),
     );
     return Scaffold(
       appBar: BasicAppBar(
-      
         title: Text(
-          'Sign Up',
+          'Sign In',
           style: GoogleFonts.inter(
               fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
           textAlign: TextAlign.center,
         ),
       ),
-      
       body: Padding(
         padding: EdgeInsets.all(20.0),
         child: Column(
@@ -37,7 +36,6 @@ class _SigninPageState extends State<SigninPage> {
           children: [
             Padding(
               padding: const EdgeInsets.all(5.0),
-              
               child: Text(
                 '"Sign in to manage your \ninventory with realtime \n tracking"',
                 style: GoogleFonts.lato(
@@ -56,42 +54,41 @@ class _SigninPageState extends State<SigninPage> {
               child: Column(
                 children: [
                   Container(
-                    width: 220,
-                    height: 90,
+                      width: 220,
+                      height: 90,
                       child: SvgPicture.asset(
-                    AppVectors.logo,
-                    
-                  )),
+                        AppVectors.logo,
+                      )),
                   const SizedBox(
                     height: 10,
                   ),
-                  _FirstNameField(),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _lastNameField(),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _emailField(),
+                  _userNameField(),
                   const SizedBox(
                     height: 10,
                   ),
                   _passwordField(),
-                  const SizedBox(height: 30,),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   ElevatedButton(
-                              style: signupButtonStyle,
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const SigninPage() ));
-                              },
-                              child: Text(
-                                'Sign up',
-                                style: GoogleFonts.lato(
-                                    fontWeight: FontWeight.bold, fontSize: 12),
-                              ),
-                            ),
-                    const SizedBox(height: 20,),
-                   _signInText(context)
+                    style: signupButtonStyle,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  const SigninPage()));
+                    },
+                    child: Text(
+                      'Sign In',
+                      style: GoogleFonts.lato(
+                          fontWeight: FontWeight.bold, fontSize: 12),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  _signupText(context)
                 ],
               ),
             ),
@@ -101,21 +98,9 @@ class _SigninPageState extends State<SigninPage> {
     );
   }
 
-  Widget _FirstNameField() {
+  Widget _userNameField() {
     return TextField(
-      decoration: const InputDecoration(hintText: 'First Name'),
-    );
-  }
-
-  Widget _lastNameField() {
-    return TextField(
-      decoration: const InputDecoration(hintText: 'Last Name'),
-    );
-  }
-
-  Widget _emailField() {
-    return TextField(
-      decoration: const InputDecoration(hintText: 'Email'),
+      decoration: const InputDecoration(hintText: 'Username'),
     );
   }
 
@@ -125,17 +110,27 @@ class _SigninPageState extends State<SigninPage> {
     );
   }
 
-  Widget _signInText(BuildContext context) {
+  Widget _signupText(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           'Already have account? ',
-          style: GoogleFonts.lato(fontWeight: FontWeight.w500,fontSize: 14, color: Colors.black ),
+          style: GoogleFonts.lato(
+              fontWeight: FontWeight.w500, fontSize: 14, color: Colors.black),
         ),
-        TextButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => ),);
-        }, child: Text('Log in'))
+        TextButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => const SignupPage()),
+              );
+            },
+            child: Text(
+              'Sign Up',
+              style: GoogleFonts.lato(color: AppColors.primary),
+            ))
       ],
     );
   }

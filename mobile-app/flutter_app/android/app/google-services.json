@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "799351242523",
+    "project_id": "sims-82d0a",
+    "storage_bucket": "sims-82d0a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:799351242523:android:971cc3cbcefde18f05ddbe",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxcqxRILCCPJSaqEQoo-O2SbzXZ4Pw0YU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

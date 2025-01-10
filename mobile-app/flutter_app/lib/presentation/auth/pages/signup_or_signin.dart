@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/widgets/appbar/app_bar.dart';
 import 'package:flutter_app/core/configs/assets/app_images.dart';
+import 'package:flutter_app/presentation/auth/pages/signin.dart';
 import 'package:flutter_app/presentation/auth/pages/signup.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -103,7 +103,9 @@ class _SignupOrSigninState extends State<SignupOrSignin> {
                           children: [
                             ElevatedButton(
                               style: signinButtonStyle,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const SigninPage()));
+                              },
                               child: Text(
                                 'Sign in',
                                 style: GoogleFonts.lato(

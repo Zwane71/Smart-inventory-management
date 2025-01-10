@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/widgets/appbar/app_bar.dart';
 import 'package:flutter_app/core/configs/assets/app_vectors.dart';
+import 'package:flutter_app/core/configs/theme/app_colors.dart';
 import 'package:flutter_app/presentation/auth/pages/signin.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,13 +16,11 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
-     final ButtonStyle signupButtonStyle = ElevatedButton.styleFrom(
-      
+    final ButtonStyle signupButtonStyle = ElevatedButton.styleFrom(
       minimumSize: const Size(78, 40),
     );
     return Scaffold(
       appBar: BasicAppBar(
-      
         title: Text(
           'Sign Up',
           style: GoogleFonts.inter(
@@ -29,7 +28,6 @@ class _SignupPageState extends State<SignupPage> {
           textAlign: TextAlign.center,
         ),
       ),
-      
       body: Padding(
         padding: EdgeInsets.all(20.0),
         child: Column(
@@ -38,7 +36,6 @@ class _SignupPageState extends State<SignupPage> {
           children: [
             Padding(
               padding: const EdgeInsets.all(5.0),
-              
               child: Text(
                 '"Sign in to manage your \ninventory with realtime \n tracking"',
                 style: GoogleFonts.lato(
@@ -57,12 +54,11 @@ class _SignupPageState extends State<SignupPage> {
               child: Column(
                 children: [
                   Container(
-                    width: 220,
-                    height: 90,
+                      width: 220,
+                      height: 90,
                       child: SvgPicture.asset(
-                    AppVectors.logo,
-                    
-                  )),
+                        AppVectors.logo,
+                      )),
                   const SizedBox(
                     height: 10,
                   ),
@@ -79,20 +75,28 @@ class _SignupPageState extends State<SignupPage> {
                     height: 10,
                   ),
                   _passwordField(),
-                  const SizedBox(height: 30,),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   ElevatedButton(
-                              style: signupButtonStyle,
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const SignupPage() ));
-                              },
-                              child: Text(
-                                'Sign up',
-                                style: GoogleFonts.lato(
-                                    fontWeight: FontWeight.bold, fontSize: 12),
-                              ),
-                            ),
-                    const SizedBox(height: 20,),
-                   _signInText(context)
+                    style: signupButtonStyle,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  const SignupPage()));
+                    },
+                    child: Text(
+                      'Sign up',
+                      style: GoogleFonts.lato(
+                          fontWeight: FontWeight.bold, fontSize: 12),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  _signInText(context)
                 ],
               ),
             ),
@@ -132,11 +136,21 @@ class _SignupPageState extends State<SignupPage> {
       children: [
         Text(
           'Already have account? ',
-          style: GoogleFonts.lato(fontWeight: FontWeight.w500,fontSize: 14, color: Colors.black ),
+          style: GoogleFonts.lato(
+              fontWeight: FontWeight.w500, fontSize: 14, color: Colors.black),
         ),
-        TextButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SigninPage() ),);
-        }, child: Text('Log in'))
+        TextButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => SigninPage()),
+              );
+            },
+            child: Text(
+              'Log in',
+              style: GoogleFonts.lato(color: AppColors.primary),
+            ))
       ],
     );
   }
