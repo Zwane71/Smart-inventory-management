@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget ? title;
@@ -24,7 +24,7 @@ class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: Colors.white.withOpacity(0.08),
           shape: BoxShape.circle
         ),
-        child: Icon(
+        child: const Icon(
           Icons.arrow_back_ios_new,
           size: 20,
           

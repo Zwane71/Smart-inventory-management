@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_app/core/configs/theme/app_theme.dart';
 import 'package:flutter_app/presentation/splash/pages/splash.dart';
+import 'package:flutter_app/service_locator.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -9,6 +10,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await inititializeDependencies();
+  
   runApp(const MyApp());
 }
 

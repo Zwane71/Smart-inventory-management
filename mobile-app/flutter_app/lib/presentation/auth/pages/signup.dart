@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/common/widgets/appbar/app_bar.dart';
 import 'package:flutter_app/core/configs/assets/app_vectors.dart';
 import 'package:flutter_app/core/configs/theme/app_colors.dart';
+import 'package:flutter_app/data/models/auth/create_user_req.dart';
+import 'package:flutter_app/domain/usecases/auth/signup.dart';
 import 'package:flutter_app/presentation/auth/pages/signin.dart';
+import 'package:flutter_app/presentation/route/pages/root.dart';
+import 'package:flutter_app/service_locator.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+  SignupPage({super.key});
+
+  final TextEditingController _fullName = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -51,53 +59,68 @@ class _SignupPageState extends State<SignupPage> {
                 color: const Color(0xffD9D9D9).withOpacity(0.44),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Column(
-                children: [
-                  Container(
-                      width: 220,
-                      height: 90,
-                      child: SvgPicture.asset(
-                        AppVectors.logo,
-                      )),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _FirstNameField(),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _lastNameField(),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _emailField(),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _passwordField(),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  ElevatedButton(
-                    style: signupButtonStyle,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  const SignupPage()));
-                    },
-                    child: Text(
-                      'Sign up',
-                      style: GoogleFonts.lato(
-                          fontWeight: FontWeight.bold, fontSize: 12),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 50,
+                  horizontal: 30
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                        width: 220,
+                        height: 90,
+                        child: SvgPicture.asset(
+                          AppVectors.logo,
+                        )),
+                    const SizedBox(
+                      height: 10,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _signInText(context)
-                ],
+                    _fullNameField(),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _emailField(),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _passwordField(),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    ElevatedButton(
+                      style: signupButtonStyle,
+                      onPressed: () async {
+                        var results = await sl<SignupUsecase>().call(
+                            params: CreateUserReq(
+                          fullName: widget._fullName.text.toString(),
+                          email: widget._email.text.toString(),
+                          password: widget._password.text.toString(),
+                        ));
+                        results.fold(
+                          (l){ 
+                            var snackbar = SnackBar(content: Text(l));
+                            ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                          },
+                          (r){
+                            Navigator.pushAndRemoveUntil(
+                              context, 
+                              MaterialPageRoute(builder: (BuildContext context) => const RootPAge()), 
+                              (route) => false,);
+                           },
+                        );
+                      },
+                      child: Text(
+                        'Sign up',
+                        style: GoogleFonts.lato(
+                            fontWeight: FontWeight.bold, fontSize: 12),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _signInText(context)
+                  ],
+                ),
               ),
             ),
           ],
@@ -106,26 +129,23 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
-  Widget _FirstNameField() {
+  Widget _fullNameField() {
     return TextField(
+      controller: widget._fullName,
       decoration: const InputDecoration(hintText: 'First Name'),
-    );
-  }
-
-  Widget _lastNameField() {
-    return TextField(
-      decoration: const InputDecoration(hintText: 'Last Name'),
     );
   }
 
   Widget _emailField() {
     return TextField(
+      controller: widget._email,
       decoration: const InputDecoration(hintText: 'Email'),
     );
   }
 
   Widget _passwordField() {
     return TextField(
+      controller: widget._password,
       decoration: const InputDecoration(hintText: 'Password'),
     );
   }

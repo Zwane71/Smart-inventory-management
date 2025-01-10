@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/common/widgets/appbar/app_bar.dart';
 import 'package:flutter_app/core/configs/assets/app_vectors.dart';
 import 'package:flutter_app/core/configs/theme/app_colors.dart';
+import 'package:flutter_app/data/models/auth/signin_user_req.dart';
+import 'package:flutter_app/domain/usecases/auth/signin.dart';
 import 'package:flutter_app/presentation/auth/pages/signup.dart';
+import 'package:flutter_app/presentation/route/pages/root.dart';
+import 'package:flutter_app/service_locator.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SigninPage extends StatefulWidget {
-  const SigninPage({super.key});
+ SigninPage({super.key});
 
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
   @override
   State<SigninPage> createState() => _SigninPageState();
 }
@@ -72,12 +78,25 @@ class _SigninPageState extends State<SigninPage> {
                   ),
                   ElevatedButton(
                     style: signupButtonStyle,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  const SigninPage()));
+                    onPressed: () async {
+                      var results = await sl<SigninUsecase>().call(
+                          params: SigninUserReq(
+                      
+                        email: widget._email.text.toString(),
+                        password: widget._password.text.toString(),
+                      ));
+                      results.fold(
+                        (l){ 
+                          var snackbar = SnackBar(content: Text(l));
+                          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                        },
+                        (r){
+                          Navigator.pushAndRemoveUntil(
+                            context, 
+                            MaterialPageRoute(builder: (BuildContext context) => const RootPAge()), 
+                            (route) => false,);
+                         },
+                      );
                     },
                     child: Text(
                       'Sign In',
@@ -100,12 +119,14 @@ class _SigninPageState extends State<SigninPage> {
 
   Widget _userNameField() {
     return TextField(
-      decoration: const InputDecoration(hintText: 'Username'),
+      controller: widget._email,
+      decoration: const InputDecoration(hintText: 'email'),
     );
   }
 
   Widget _passwordField() {
     return TextField(
+      controller: widget._password,
       decoration: const InputDecoration(hintText: 'Password'),
     );
   }
@@ -124,7 +145,7 @@ class _SigninPageState extends State<SigninPage> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => const SignupPage()),
+                    builder: (BuildContext context) => SignupPage()),
               );
             },
             child: Text(

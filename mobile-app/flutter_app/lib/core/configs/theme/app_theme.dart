@@ -1,10 +1,12 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/configs/theme/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
 
- static final LightTheme = ThemeData(
+ static final  LightTheme = ThemeData(
   primaryColor: AppColors.primary,
   scaffoldBackgroundColor: AppColors.defaultBackground,
   brightness: Brightness.light,
@@ -37,8 +39,15 @@ class AppTheme {
     contentPadding: const EdgeInsets.all(10),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(15)
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(15),
+      borderSide: BorderSide(
+        color: Colors.white
+      )
     )
   ),
+  
   scaffoldBackgroundColor: AppColors.choiceBackround,
   brightness: Brightness.dark,
   elevatedButtonTheme: ElevatedButtonThemeData(

@@ -104,7 +104,7 @@ class _SignupOrSigninState extends State<SignupOrSignin> {
                             ElevatedButton(
                               style: signinButtonStyle,
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const SigninPage()));
+                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) =>  SigninPage()));
                               },
                               child: Text(
                                 'Sign in',
@@ -116,7 +116,7 @@ class _SignupOrSigninState extends State<SignupOrSignin> {
                             ElevatedButton(
                               style: signupButtonStyle,
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const SignupPage() ));
+                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) =>  SignupPage() ));
                               },
                               child: Text(
                                 'Sign up',
